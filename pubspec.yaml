@@ -37,8 +37,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_dynamic_icon: ^2.1.0
   android_package_manager: ^0.7.1
-  launcher_icon_switcher: ^0.0.2
-  # dynamic_icon_flutter: ^0.0.7
   android_dynamic_icon: ^1.0.1
 
 
