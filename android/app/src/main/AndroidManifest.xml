@@ -1,12 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="dynamic_app_icon"
+        android:label="Dynamic Icon"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
-            android:exported="true"
             android:launchMode="singleTop"
+            android:exported="true"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
@@ -30,11 +30,35 @@
             android:name="flutterEmbedding"
             android:value="2" />
 
-    <!-- Icon 1-->
-    <activity-alias
+             <activity-alias
         android:label="Dynamic Icons"
         android:icon="@mipmap/ic_launcher_1"
-        android:name=".icon_1"
+        android:name=".ic_launcher_1"
+        android:enabled="false"
+        android:exported="true"
+        android:targetActivity=".MainActivity">
+
+        <meta-data
+            android:name="io.flutter.embedding.android.NormalTheme"
+            android:resource="@style/NormalTheme"
+            />
+
+        <meta-data
+            android:name="io.flutter.embedding.android.SplashScreenDrawable"
+            android:resource="@drawable/launch_background"
+            />
+
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity-alias>
+
+    <!-- Main Activity Alias-->
+    <activity-alias
+        android:label="Dynamic Icons"
+        android:icon="@mipmap/ic_launcher"
+        android:name=".MainActivityAlias"
         android:enabled="false"
         android:exported="true"
         android:targetActivity=".MainActivity">
@@ -57,9 +81,9 @@
 
     <!-- Icon 2-->
      <activity-alias
-        android:label="Dynamic Icons1"
+        android:label="Dynamic Icons"
         android:icon="@mipmap/ic_launcher_2"
-        android:name=".icon_2"
+        android:name=".ic_launcher_2"
         android:enabled="false"
         android:exported="true"
         android:targetActivity=".MainActivity">
@@ -80,5 +104,79 @@
         </intent-filter>
     </activity-alias>
     
+    <!-- Icon3-->
+     <activity-alias
+        android:label="Dynamic Icons"
+        android:icon="@mipmap/ic_launcher_3"
+        android:name=".ic_launcher_3"
+        android:enabled="false"
+        android:exported="true"
+        android:targetActivity=".MainActivity">
+
+        <meta-data
+            android:name="io.flutter.embedding.android.NormalTheme"
+            android:resource="@style/NormalTheme"
+            />
+
+        <meta-data
+            android:name="io.flutter.embedding.android.SplashScreenDrawable"
+            android:resource="@drawable/launch_background"
+            />
+
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity-alias>
+
+    <!-- Icon4-->
+     <activity-alias
+        android:label="Dynamic Icons"
+        android:icon="@mipmap/ic_launcher_4"
+        android:name=".ic_launcher_4"
+        android:enabled="false"
+        android:exported="true"
+        android:targetActivity=".MainActivity">
+
+        <meta-data
+            android:name="io.flutter.embedding.android.NormalTheme"
+            android:resource="@style/NormalTheme"
+            />
+
+        <meta-data
+            android:name="io.flutter.embedding.android.SplashScreenDrawable"
+            android:resource="@drawable/launch_background"
+            />
+
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity-alias>
+
+    <!-- Icon5-->
+     <activity-alias
+        android:label="Dynamic Icons"
+        android:icon="@mipmap/ic_launcher_5"
+        android:name=".ic_launcher_5"
+        android:enabled="false"
+        android:exported="true"
+        android:targetActivity=".MainActivity">
+
+        <meta-data
+            android:name="io.flutter.embedding.android.NormalTheme"
+            android:resource="@style/NormalTheme"
+            />
+
+        <meta-data
+            android:name="io.flutter.embedding.android.SplashScreenDrawable"
+            android:resource="@drawable/launch_background"
+            />
+
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity-alias>
     </application>
 </manifest>

@@ -39,6 +39,8 @@ dependencies:
   android_package_manager: ^0.7.1
   launcher_icon_switcher: ^0.0.2
   # dynamic_icon_flutter: ^0.0.7
+  android_dynamic_icon: ^1.0.1
+
 
 
 dev_dependencies:
@@ -69,6 +71,9 @@ flutter:
     # - images/a_dot_ham.jpeg
     - lib\assets\icon_1.png
     - lib\assets\icon_2.png
+    - lib\assets\icon_3.png
+    - lib\assets\icon_4.png
+    - lib\assets\icon_5.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
