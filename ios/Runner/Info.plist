@@ -63,6 +63,27 @@
 						<string>ic_launcher_2</string>
 					</array>
 				</dict>
+				<key>ic_launcher_3</key>
+				<dict>
+					<key>CFBundleIconFiles</key>
+					<array>
+						<string>ic_launcher_3</string>
+					</array>
+				</dict>
+				<key>ic_launcher_4</key>
+				<dict>
+					<key>CFBundleIconFiles</key>
+					<array>
+						<string>ic_launcher_4</string>
+					</array>
+				</dict>
+				<key>ic_launcher_5</key>
+				<dict>
+					<key>CFBundleIconFiles</key>
+					<array>
+						<string>ic_launcher_5</string>
+					</array>
+				</dict>
 			</dict>
 			<key>CFBundlePrimaryIcon</key>
 			<dict>
