@@ -1,8 +1,6 @@
+import 'dart:io';
+import 'package:dynamic_app_icon/helper/change_app_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
-import 'package:android_package_manager/android_package_manager.dart';
-// import 'package:launcher_icon_switcher/launcher_icon_switcher.dart';
 
 class ChangeAppIconScreen extends StatefulWidget {
   const ChangeAppIconScreen({super.key});
@@ -12,11 +10,8 @@ class ChangeAppIconScreen extends StatefulWidget {
 }
 
 class _ChangeAppIconScreenState extends State<ChangeAppIconScreen> {
-  final packageManager = AndroidPackageManager();
-  final String pkg = 'com.example.dynamic_app_icon';
-  int iconIndex = 0;
-  String name = '';
-
+  ValueNotifier<int> iconIndex = ValueNotifier(0);
+  String currActivityName = '';
   List<String> iconName = <String>[
     'ic_launcher_1',
     'ic_launcher_2',
@@ -24,7 +19,6 @@ class _ChangeAppIconScreenState extends State<ChangeAppIconScreen> {
     'ic_launcher_4',
     'ic_launcher_5',
   ];
-
   List<String> imagefiles = [
     'lib/assets/icon_1.png',
     'lib/assets/icon_2.png',
@@ -36,89 +30,7 @@ class _ChangeAppIconScreenState extends State<ChangeAppIconScreen> {
   @override
   void initState() {
     super.initState();
-    _getActivityName();
-  }
-
-  void _getActivityName() async {
-    const platform = MethodChannel('my_channel');
-    try {
-      final String activityName =
-          await platform.invokeMethod('getCurrentActivityName');
-      setState(() {
-        name = activityName;
-      });
-      print('Current Activity Name : $name');
-    } on PlatformException catch (e) {
-      throw 'Failed to get activity name: ${e.message}';
-    }
-  }
-
-  void changeAppIconAndroid(String iconCls) async {
-    try {
-      String cls = 'com.example.dynamic_app_icon.$iconCls';
-
-      // Enable the activity alias
-      try {
-        await packageManager.setComponentEnabledSetting(
-          componentName: ComponentName(pkg, cls),
-          newState: ComponentEnabledState.stateEnabled,
-          flags: EnabledFlags({
-            PMFlag.doNotKillApp,
-            PMFlag.synchronous,
-          }),
-        );
-      } catch (e) {
-        print('Activity Enable Error : $e');
-      }
-
-      try {
-        if (iconCls == name) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Already in the Club'),
-              duration: Duration(seconds: 1),
-            ),
-          );
-          print('Already in the club');
-          return;
-        }
-
-        await packageManager.setComponentEnabledSetting(
-          componentName: ComponentName(
-            pkg,
-            name.isNotEmpty
-                ? 'com.example.dynamic_app_icon.$name'
-                : 'com.example.dynamic_app_icon.MainActivity',
-          ),
-          newState: ComponentEnabledState.stateDisabled,
-          flags: EnabledFlags({
-            PMFlag.doNotKillApp,
-            PMFlag.synchronous,
-          }),
-        );
-        print('Activity Disabled = $name');
-        print('Activity Changed Succesfully');
-      } catch (e) {
-        print('Activity Disable Error : $e');
-      }
-    } catch (e) {
-      print('Failed to change activity: $e');
-    }
-  }
-
-  changeAppIconIOS() async {
-    try {
-      if (await FlutterDynamicIcon.supportsAlternateIcons) {
-        await FlutterDynamicIcon.setAlternateIconName(iconName[iconIndex]);
-        debugPrint("App icon change successful");
-        return;
-      }
-    } catch (e) {
-      debugPrint("Exception: ${e.toString()}");
-    }
-    debugPrint("Failed to change app icon ");
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text('IOS Required')));
+    GetActivityName.getActivityName().then((name) => currActivityName = name);
   }
 
   @override
@@ -147,10 +59,17 @@ class _ChangeAppIconScreenState extends State<ChangeAppIconScreen> {
         padding: const EdgeInsets.all(20),
         child: GestureDetector(
           onTap: () {
-            setState(
-              () => iconIndex = index,
-            );
-            changeAppIconAndroid(iconName[index]);
+            iconIndex.value = index;
+
+            if (Platform.isAndroid) {
+              ChangeAppIconAndroid().changeAppIconAndroid(
+                context: context,
+                currActivityName: currActivityName,
+                iconActivityClass: iconName[index],
+              );
+            } else if (Platform.isIOS) {
+              ChangeAppIconIOS.changeAppIconIOS(iconName, index);
+            }
           },
           child: ListTile(
             contentPadding: const EdgeInsets.only(left: 0.0, right: 0.0),
@@ -160,7 +79,7 @@ class _ChangeAppIconScreenState extends State<ChangeAppIconScreen> {
               height: 45,
             ),
             title: Text(themeTxt, style: const TextStyle(fontSize: 25)),
-            trailing: iconIndex == index
+            trailing: iconIndex.value == index
                 ? const Icon(
                     Icons.check_circle_rounded,
                     color: Colors.green,

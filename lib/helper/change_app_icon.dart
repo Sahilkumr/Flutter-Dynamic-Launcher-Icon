@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 
 class ChangeAppIconIOS {
-  static void changeAppIconIOS(iconName, int iconIndex) async {
+  static void changeAppIconIOS(List<String> iconName, int iconIndex) async {
     try {
       if (await FlutterDynamicIcon.supportsAlternateIcons) {
         await FlutterDynamicIcon.setAlternateIconName(iconName[iconIndex]);
@@ -20,14 +20,14 @@ class ChangeAppIconIOS {
 
 class ChangeAppIconAndroid {
   final packageManager = AndroidPackageManager();
-  void changeAppIconAndroid(
-    String activityClass,
-    String currActivityName,
-    BuildContext context,
-  ) async {
+  void changeAppIconAndroid({
+    required String iconActivityClass,
+    required String currActivityName,
+    required BuildContext context,
+  }) async {
     try {
       String pkg = 'com.example.dynamic_app_icon';
-      String cls = 'com.example.dynamic_app_icon.$activityClass';
+      String cls = 'com.example.dynamic_app_icon.$iconActivityClass';
       try {
         await packageManager.setComponentEnabledSetting(
           componentName: ComponentName(pkg, cls),
@@ -44,7 +44,7 @@ class ChangeAppIconAndroid {
       }
 
       try {
-        if (activityClass == currActivityName) {
+        if (iconActivityClass == currActivityName) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Already in the Club'),
