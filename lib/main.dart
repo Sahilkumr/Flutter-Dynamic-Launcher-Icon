@@ -1,5 +1,4 @@
 import 'package:dynamic_app_icon/screens/change_app_icon.dart';
-import 'package:dynamic_app_icon/screens/change_icon_package2.dart';
 import 'package:flutter/material.dart';
 
 void main() {
