@@ -71,25 +71,28 @@ class _ChangeAppIconScreenState extends State<ChangeAppIconScreen> {
               ChangeAppIconIOS.changeAppIconIOS(iconName, index);
             }
           },
-          child: ListTile(
-            contentPadding: const EdgeInsets.only(left: 0.0, right: 0.0),
-            leading: Image.asset(
-              imagefiles[index],
-              width: 45,
-              height: 45,
+          child: ValueListenableBuilder(
+            valueListenable: iconIndex,
+            builder: (context, value, child) => ListTile(
+              contentPadding: const EdgeInsets.only(left: 0.0, right: 0.0),
+              leading: Image.asset(
+                imagefiles[index],
+                width: 45,
+                height: 45,
+              ),
+              title: Text(themeTxt, style: const TextStyle(fontSize: 25)),
+              trailing: value == index
+                  ? const Icon(
+                      Icons.check_circle_rounded,
+                      color: Colors.green,
+                      size: 30,
+                    )
+                  : Icon(
+                      Icons.circle_outlined,
+                      color: Colors.grey.withOpacity(0.5),
+                      size: 30,
+                    ),
             ),
-            title: Text(themeTxt, style: const TextStyle(fontSize: 25)),
-            trailing: iconIndex.value == index
-                ? const Icon(
-                    Icons.check_circle_rounded,
-                    color: Colors.green,
-                    size: 30,
-                  )
-                : Icon(
-                    Icons.circle_outlined,
-                    color: Colors.grey.withOpacity(0.5),
-                    size: 30,
-                  ),
           ),
         ),
       );
