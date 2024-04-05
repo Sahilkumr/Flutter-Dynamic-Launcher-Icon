@@ -59,17 +59,38 @@ class _ChangeAppIconScreenState extends State<ChangeAppIconScreen> {
         padding: const EdgeInsets.all(20),
         child: GestureDetector(
           onTap: () {
-            iconIndex.value = index;
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  content: const Text(
+                    'App Icon Changed.\nApp Will Restart to Reflect Changes!',
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text('Cancel'),
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          iconIndex.value = index;
 
-            if (Platform.isAndroid) {
-              ChangeAppIconAndroid().changeAppIconAndroid(
-                context: context,
-                currActivityName: currActivityName,
-                iconActivityClass: iconName[index],
-              );
-            } else if (Platform.isIOS) {
-              ChangeAppIconIOS.changeAppIconIOS(iconName, index);
-            }
+                          if (Platform.isAndroid) {
+                            ChangeAppIconAndroid().changeAppIconAndroid(
+                              context: context,
+                              currActivityName: currActivityName,
+                              iconActivityClass: iconName[index],
+                            );
+                          } else if (Platform.isIOS) {
+                            ChangeAppIconIOS.changeAppIconIOS(iconName, index);
+                          }
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Restart')),
+                  ],
+                );
+              },
+            );
           },
           child: ValueListenableBuilder(
             valueListenable: iconIndex,
