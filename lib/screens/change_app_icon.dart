@@ -82,7 +82,7 @@ class _ChangeAppIconScreenState extends State<ChangeAppIconScreen> {
                               iconActivityClass: iconName[index],
                             );
                           } else if (Platform.isIOS) {
-                            ChangeAppIconIOS.changeAppIconIOS(iconName, index);
+                            ChangeAppIconIOS.changeAppIconIOS(iconName[index]);
                           }
                           Navigator.pop(context);
                         },

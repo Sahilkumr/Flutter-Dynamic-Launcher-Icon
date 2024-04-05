@@ -4,10 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 
 class ChangeAppIconIOS {
-  static void changeAppIconIOS(List<String> iconName, int iconIndex) async {
+  static void changeAppIconIOS(String iconName) async {
     try {
       if (await FlutterDynamicIcon.supportsAlternateIcons) {
-        await FlutterDynamicIcon.setAlternateIconName(iconName[iconIndex]);
+        await FlutterDynamicIcon.setAlternateIconName(iconName);
         debugPrint("App icon change successful");
         return;
       }
