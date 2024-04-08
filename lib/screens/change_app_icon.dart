@@ -79,7 +79,7 @@ class _ChangeAppIconScreenState extends State<ChangeAppIconScreen> {
                             ChangeAppIconAndroid().changeAppIconAndroid(
                               context: context,
                               currActivityName: currActivityName,
-                              iconActivityClass: iconName[index],
+                              targetActivityName: iconName[index],
                             );
                           } else if (Platform.isIOS) {
                             ChangeAppIconIOS.changeAppIconIOS(iconName[index]);

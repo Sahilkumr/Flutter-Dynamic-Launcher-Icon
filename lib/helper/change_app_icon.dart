@@ -21,13 +21,13 @@ class ChangeAppIconIOS {
 class ChangeAppIconAndroid {
   final packageManager = AndroidPackageManager();
   void changeAppIconAndroid({
-    required String iconActivityClass,
+    required String targetActivityName,
     required String currActivityName,
     required BuildContext context,
   }) async {
     try {
       String pkg = 'com.example.dynamic_app_icon';
-      String cls = 'com.example.dynamic_app_icon.$iconActivityClass';
+      String cls = 'com.example.dynamic_app_icon.$targetActivityName';
       try {
         await packageManager.setComponentEnabledSetting(
           componentName: ComponentName(pkg, cls),
@@ -44,7 +44,7 @@ class ChangeAppIconAndroid {
       }
 
       try {
-        if (iconActivityClass == currActivityName) {
+        if (currActivityName == targetActivityName) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Already in the Club'),
