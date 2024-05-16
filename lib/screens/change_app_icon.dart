@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:dynamic_app_icon/helper/change_app_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:launcher_icon_switcher/launcher_icon_switcher.dart';
 
 class ChangeAppIconScreen extends StatefulWidget {
   const ChangeAppIconScreen({super.key});
@@ -11,6 +12,7 @@ class ChangeAppIconScreen extends StatefulWidget {
 
 class _ChangeAppIconScreenState extends State<ChangeAppIconScreen> {
   ValueNotifier<int> iconIndex = ValueNotifier(0);
+  final _iconSwitcher = LauncherIconSwitcher();
   String currActivityName = '';
   List<String> iconName = <String>[
     'ic_launcher_1',
@@ -18,6 +20,7 @@ class _ChangeAppIconScreenState extends State<ChangeAppIconScreen> {
     'ic_launcher_3',
     'ic_launcher_4',
     'ic_launcher_5',
+    'MainActivityAlias',
   ];
   List<String> imagefiles = [
     'lib/assets/icon_1.png',
@@ -25,12 +28,21 @@ class _ChangeAppIconScreenState extends State<ChangeAppIconScreen> {
     'lib/assets/icon_3.png',
     'lib/assets/icon_4.png',
     'lib/assets/icon_5.png',
+    'lib/assets/icon_5.png',
   ];
 
   @override
   void initState() {
     super.initState();
+    _iconSwitcher.initialize(iconName, 'MainActivityAlias');
     GetActivityName.getActivityName().then((name) => currActivityName = name);
+  }
+
+  Future<void> changeIcon(String iconName) async{
+    String currIcon = await _iconSwitcher.getCurrentIcon();
+    print("Currently Used Icon : $currIcon");
+    print("Icon To be Set : $iconName");
+    await _iconSwitcher.setIcon(iconName,shouldKeepAlive: true);
   }
 
   @override
@@ -49,6 +61,7 @@ class _ChangeAppIconScreenState extends State<ChangeAppIconScreen> {
             buildIconTile(2, 'Manchester United Club'),
             buildIconTile(3, 'Barcelona Club'),
             buildIconTile(4, 'Real Madrid Club'),
+            buildIconTile(5, 'Default'),
           ],
         ),
       ),
@@ -74,16 +87,16 @@ class _ChangeAppIconScreenState extends State<ChangeAppIconScreen> {
                     TextButton(
                         onPressed: () {
                           iconIndex.value = index;
-
-                          if (Platform.isAndroid) {
-                            ChangeAppIconAndroid().changeAppIconAndroid(
-                              context: context,
-                              currActivityName: currActivityName,
-                              targetActivityName: iconName[index],
-                            );
-                          } else if (Platform.isIOS) {
-                            ChangeAppIconIOS.changeAppIconIOS(iconName[index]);
-                          }
+                          changeIcon(iconName[index]);
+                          // if (Platform.isAndroid) {
+                          //   ChangeAppIconAndroid().changeAppIconAndroid(
+                          //     context: context,
+                          //     currActivityName: currActivityName,
+                          //     targetActivityName: iconName[index],
+                          //   );
+                          // } else if (Platform.isIOS) {
+                          //   ChangeAppIconIOS.changeAppIconIOS(iconName[index]);
+                          // }
                           Navigator.pop(context);
                         },
                         child: const Text('Restart')),
