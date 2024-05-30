@@ -1,0 +1,128 @@
+Project Name : Dynamic App Icon 
+
+Goal 1:  
+
+Change the App Icon Dynamically Based on  
+
+Which Group[Football Group] 
+
+the User is Logged In. 
+
+Image is Coming From the Api Call. 
+
+Goal 2:  
+
+Change the Splash Screen Dynamically. 
+
+ 
+
+Work Flow: 
+
+Change the App Icon Dynamically  
+
+Change Splash Screen Dynamically 
+
+How login changes the app icon 
+
+What login will provide to change the app icon. 
+
+Save the app icon after app closed. 
+
+Change the app icon on logout to default. 
+
+ 
+
+Process:  
+
+For IOS :  
+
+From the Flutter_Dynamic_Icon Package; 
+
+Changes in the info. List File 
+
+Adding the Dictionaries for the icon images in info. List File. 
+
+For Android: 
+
+Cannot Change Directly in Runtime in the manifest. 
+
+But can Use the Activity Alias To change the icon. 
+
+Access the Activity Alias With the Package Manger in Native. 
+
+No Mean to use Package Manager in flutter. 
+
+Using the android_Package_Manager Package to access the Package Manager in flutter. 
+
+Getting the Component and Switching Runtime App Icon. 
+
+ 
+
+Packages Used : 
+ 
+
+flutter_dynamic_icon: ^2.1.0 
+
+ 
+
+ 
+
+android_package_manager: ^0.7.1 
+
+ 
+
+Provides access to Android's native PackageManager API to fetch various information, such as installed applications, packages, permissions, etc 
+
+ 
+
+android_dynamic_icon: ^1.0.1 
+
+ 
+
+ 
+
+ 
+
+lq_dynamic_icon 0.0.2  
+
+ 
+
+Working but Splash Screen not Displayed. 
+
+ 
+
+launcher_icon_switcher 0.0.2  
+
+ 
+
+Working Perfectly. 
+
+Task : Dynamic App Icons 
+
+Package Used :  
+
+flutter_dynamic_icon: ^2.1.0 
+
+ 
+
+android_package_manager: ^0.7.1 
+
+ 
+
+android_dynamic_icon: ^1.0.1 
+
+ 
+
+Change icon From Within the App: Done. 
+
+Splash Screen With Changed Icon : Done. 
+
+Change icon From Api : 
+
+Required to Store all images and club name in app by-default. 
+
+Requires Change In Manifest File Which is Not Possible in Runtime. 
+
+App Will Re-Start After Every time the Club Icon is to be Changed : 
+
+ requires super level Native Code Structuring. 
